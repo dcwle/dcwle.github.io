@@ -1,0 +1,290 @@
+<html><head><base href="/">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wheeling & Lake Erie Railway</title>
+<style>
+:root {
+  --primary: #000000;
+  --secondary: #ff8c00;
+  --success: #ff6b00;
+  --background: #fff5eb;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: var(--background);
+  margin: 0;
+  padding: 20px;
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+}
+
+h1 {
+  color: var(--primary);
+  text-align: center;
+  margin-bottom: 30px;
+  position: relative;
+}
+
+h1:after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 4px;
+  background: var(--secondary);
+  margin: 10px auto;
+  border-radius: 2px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--primary);
+  font-weight: 600;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid #ffd7b5;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: border-color 0.3s ease;
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: var(--secondary);
+  outline: none;
+}
+
+button {
+  background: var(--secondary);
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  transition: transform 0.2s ease, background 0.2s ease;
+  width: 100%;
+}
+
+button:hover {
+  background: #ff6b00;
+  transform: translateY(-2px);
+}
+
+.success-message {
+  display: none;
+  background: var(--success);
+  color: white;
+  padding: 15px;
+  border-radius: 5px;
+  text-align: center;
+  margin-top: 20px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.container {
+  animation: fadeIn 0.6s ease-out;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Wheeling & Lake Erie Railway</h1>
+  <form id="quoteForm">
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input type="text" id="name" name="name" required>
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" required>
+    </div>
+
+    <div class="form-group">
+      <label for="phone">Phone Number</label>
+      <input type="tel" id="phone" name="phone" required>
+    </div>
+
+    <div class="form-group">
+      <label for="company">Company Name</label>
+      <input type="text" id="company" name="company" required>
+    </div>
+
+    <div class="form-group">
+      <label for="shipper">Shipper</label>
+      <input type="text" id="shipper" name="shipper" required>
+    </div>
+
+    <div class="form-group">
+      <label for="consignee">Consignee</label>
+      <input type="text" id="consignee" name="consignee" required>
+    </div>
+
+    <div class="form-group">
+      <label for="origin">Origin</label>
+      <input type="text" id="origin" name="origin" required>
+    </div>
+
+    <div class="form-group">
+      <label for="destination">Destination</label>
+      <input type="text" id="destination" name="destination" required>
+    </div>
+
+    <div class="form-group">
+      <label for="payer">Payer of Freight</label>
+      <input type="text" id="payer" name="payer" required>
+    </div>
+
+    <div class="form-group">
+      <label for="stcc">STCC</label>
+      <input type="text" id="stcc" name="stcc" required>
+    </div>
+
+    <div class="form-group">
+      <label for="carType">Car Type</label>
+      <input type="text" id="carType" name="carType" required>
+    </div>
+
+    <div class="form-group">
+      <label for="carOwner">Car Owner</label>
+      <select id="carOwner" name="carOwner" required>
+        <option value="">Select car owner...</option>
+        <option value="railroad">Railroad</option>
+        <option value="private">Private</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="volume">Monthly Carload Volume</label>
+      <input type="number" id="volume" name="volume" required>
+    </div>
+
+    <button type="submit">Request Quote</button>
+  </form>
+
+  <div class="success-message" id="successMessage">
+    Thank you for your request! We'll get back to you within 24 hours.
+  </div>
+</div>
+
+<script>
+const stccEmailMap = {
+  '01': 'agriculture@wle.com',
+  '10': 'metals@wle.com',
+  '11': 'coal@wle.com',
+  '14': 'aggregates@wle.com',
+  '142': 'dcarlin@wlerwy.com',
+  '291': 'jcrues@wlerwy.com',
+  '20': 'food@wle.com',
+  '24': 'lumber@wle.com',
+  '26': 'paper@wle.com',
+  '28': 'chemicals@wle.com',
+  '29': 'petroleum@wle.com',
+  '32': 'clay@wle.com',
+  '33': 'metalproducts@wle.com',
+  '37': 'transportation@wle.com',
+  '40': 'waste@wle.com',
+  'default': 'general@wle.com'
+};
+
+document.getElementById('quoteForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  
+  const formData = {
+    name: document.getElementById('name').value,
+    email: document.getElementById('email').value,
+    phone: document.getElementById('phone').value,
+    company: document.getElementById('company').value,
+    shipper: document.getElementById('shipper').value,
+    consignee: document.getElementById('consignee').value,
+    origin: document.getElementById('origin').value,
+    destination: document.getElementById('destination').value,
+    payer: document.getElementById('payer').value,
+    stcc: document.getElementById('stcc').value,
+    carType: document.getElementById('carType').value,
+    carOwner: document.getElementById('carOwner').value,
+    volume: document.getElementById('volume').value
+  };
+
+  let targetEmail = 'general@wle.com';
+  const stccPrefix = formData.stcc.substring(0, 3);
+  
+  if (stccPrefix === '142') {
+    targetEmail = 'dcarlin@wlerwy.com';
+  } else {
+    const stccPrefix2 = formData.stcc.substring(0, 2);
+    targetEmail = stccEmailMap[stccPrefix] || stccEmailMap[stccPrefix2] || stccEmailMap['default'];
+  }
+
+  const emailContent = `
+    New Quote Request:
+    Name: ${formData.name}
+    Email: ${formData.email}
+    Phone: ${formData.phone}
+    Company: ${formData.company}
+    Shipper: ${formData.shipper}
+    Consignee: ${formData.consignee}
+    Origin: ${formData.origin}
+    Destination: ${formData.destination}
+    Payer of Freight: ${formData.payer}
+    STCC: ${formData.stcc}
+    Car Type: ${formData.carType}
+    Car Owner: ${formData.carOwner}
+    Monthly Carload Volume: ${formData.volume}
+  `;
+
+  try {
+    const response = await fetch('/api/send-email', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        to: targetEmail,
+        subject: `Quote Request from ${formData.company}`,
+        content: emailContent
+      })
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to send email');
+    }
+
+    document.getElementById('successMessage').style.display = 'block';
+    
+    this.reset();
+
+    setTimeout(() => {
+      document.getElementById('successMessage').style.display = 'none';
+    }, 5000);
+
+  } catch (error) {
+    console.error('Error sending email:', error);
+    alert('There was an error sending your request. Please try again later.');
+  }
+});
+</script>
+
+</body></html>
